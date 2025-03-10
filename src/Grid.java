@@ -1,5 +1,4 @@
-//import java.util.List;
-package src; // can be removed,
+import java.util.List;
 
 public abstract class Grid {
 

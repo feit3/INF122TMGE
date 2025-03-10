@@ -1,13 +1,14 @@
-package src;
-
 public class Player {
     private String username;
     private int points;
+    private Grid gameBoard;
+
 
     Player(String username){
         this.username = username;
         this.points = 0;
     }
+
 
     int getPoints(){ //getter
         return this.points;
@@ -22,4 +23,6 @@ public class Player {
         this.points -= points;
     }
 
+
 }
+
