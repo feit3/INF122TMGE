@@ -1,8 +1,17 @@
+import java.util.ArrayList;
+
 public abstract class Tile {
+    ArrayList<Integer> coordinates;
+    boolean filled;
+    Color color;
 
-    public int x;
-    public int y;
-    public boolean filled;
+    public ArrayList<Integer> getCoordinates() {
+        return coordinates;
+    }
 
-//    public abstract int[] getCordinate();
+    public void setCoordinates(int x, int y) {
+        coordinates.clear();
+        coordinates.add(x);
+        coordinates.add(y);
+    }
 }
