@@ -1,5 +1,6 @@
 public class TMGEManager {
     public static void main(String[] arg) {
-        System.out.println("hello world");
+        Game c4 = new ConnectFour();
+        c4.start();
     }
 }

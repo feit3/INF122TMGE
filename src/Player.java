@@ -23,6 +23,9 @@ public class Player {
         this.points -= points;
     }
 
-
+    @Override
+    public String toString() {
+        return username;
+    }
 }
 
