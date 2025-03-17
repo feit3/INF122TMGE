@@ -7,11 +7,15 @@ public abstract class Grid {
     // (we as developer set the number, kinda like 'hardcoding' default width/height)
     public static int DEFAULT_WIDTH;
     public static int DEFAULT_HEIGHT;
+
     public boolean isFull;
     protected List<List<Tile>> board;
 
     public abstract Set<Point> checkMatch(int row, int col);
     public abstract boolean clearMatchedTiles(Set<Point> matchedTiles);
+    public abstract void placeTile();
+    public abstract boolean verifyTilePos();
+    public abstract void moveTile();
     public abstract Tile[][] getBoard();
     public void printBoard() {
         for ( Tile[] tile_List : getBoard() ) {
