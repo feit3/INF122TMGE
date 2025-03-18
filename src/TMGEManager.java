@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TMGEManager {
     private static TMGEManager TMGEManagerInstance;
@@ -37,7 +38,16 @@ public class TMGEManager {
     public void displayGames() {
         int counter = 1;
         for (Game game : allGames) {
-            System.out.println(counter + ". " + game);
+            System.out.println(counter + ". " + game.getName());
+            counter++;
+        }
+        while(true) {
+            Scanner in = new Scanner(System.in);
+            try {
+                playGame(this.allGames.get(in.nextInt() - 1));
+            } catch (Exception e) {
+                System.out.println("Error trying to play game, please try again");
+            }
         }
     }
 
