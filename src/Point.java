@@ -1,9 +1,9 @@
 public class Point {
-    public int row;
-    public int col;
+    public int x;
+    public int y;
 
     public Point(int x, int y) {
-        this.row = x;
-        this.col = y;
+        this.x = x;
+        this.y = y;
     }
 }

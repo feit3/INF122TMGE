@@ -6,6 +6,7 @@ public class ShipPiece extends Tile {
     ShipPieceState state;
 
     public ShipPiece(int x, int y) {
+        super("ShipPiece", "S");
         coordinates = new ArrayList<>();
         coordinates.add(x);
         coordinates.add(y);

@@ -27,9 +27,5 @@ public class Player {
         return username;
     }
 
-    @Override
-    public String toString() {
-        return username;
-    }
 }
 

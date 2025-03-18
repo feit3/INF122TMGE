@@ -11,7 +11,7 @@ public class Battleship extends Game {
             gameBoards.add(battleshipGameBoard);
         }
 
-        currentPlayer = players.getFirst(); // first player starts
+        currentPlayer = players.get(0); // first player starts
     }
 
     @Override

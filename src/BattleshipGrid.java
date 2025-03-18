@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -28,6 +29,11 @@ public class BattleshipGrid extends Grid {
     }
 
     @Override
+    public boolean clearMatchedTiles(Set<Point> matchedTiles, Map<String, Player> playerColor) {
+        return false;
+    }
+
+    @Override
     public void initialize() {
         // generate battleships in random areas on the grid, these ships can either be vertical or horizontal
         generateBattleShips();
@@ -49,7 +55,6 @@ public class BattleshipGrid extends Grid {
         }
     }
 
-    @Override
     public boolean checkMatch(Tile tile) {
         int counter = 0;
         if (tile instanceof ShipPiece) {
@@ -76,7 +81,7 @@ public class BattleshipGrid extends Grid {
 
     @Override
     public void placeTile(int x_coord, int y_coord) {
-        // need to do
+
     }
 
     @Override

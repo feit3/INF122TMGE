@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public abstract class Game {
     ArrayList<Grid> gameBoards;
     ArrayList<Player> players; //if need be Array we can do that
-    int turnBelongsTo;
     Player currentPlayer;
     Player winner;
 

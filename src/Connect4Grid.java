@@ -40,6 +40,11 @@ public class Connect4Grid extends Grid{
         return matched.size() >= 4 ? matched : Collections.emptySet();
     }
 
+    @Override
+    public boolean clearMatchedTiles(Set<Point> matchedTiles) {
+        return false;
+    }
+
     // Helper to check in both directions and collect matched tiles
     private void checkDirection(int row, int col, int rowDir, int colDir, Set<Point> matched) {
         List<Point> temp = new ArrayList<>();
@@ -82,10 +87,14 @@ public class Connect4Grid extends Grid{
     }
 
     @Override
-    public boolean clearMatchedTiles(Set<Point> matchedTiles) {
+    public boolean clearMatchedTiles(Set<Point> matchedTiles, Map<String, Player> playerColor) {
         if (matchedTiles.size() == 0) { return false; } // board has not changed
         for (Point pos : matchedTiles) {
-            board[pos.row][pos.col] = new TokenTile("Empty", " ");  // Clear tile in this way XD
+            // Every tile cleared, add 1 point to corresponding player
+            // In this method, cleared tile could be either color
+            playerColor.get(board[pos.x][pos.y].getType()).addPoints(1);
+
+            board[pos.x][pos.y] = new TokenTile("Empty", " ");  // Clear tile in this way XD
         }
 //        printBoard();
         applyTileFall();
@@ -95,6 +104,11 @@ public class Connect4Grid extends Grid{
 
     @Override
     public void initialize() {
+
+    }
+
+    @Override
+    public void clearMatchedTiles(ArrayList<Tile> tiles) {
 
     }
 
