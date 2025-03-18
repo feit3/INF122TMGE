@@ -4,6 +4,7 @@ public abstract class Tile {
     ArrayList<Integer> coordinates;
     boolean filled;
     Color color;
+    String Icon;
 
     public ArrayList<Integer> getCoordinates() {
         return coordinates;

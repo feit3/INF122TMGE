@@ -30,17 +30,18 @@ public class Battleship extends Game {
     @Override
     public Boolean isGameOver() {
         Player possibleWinner = null;
-        int activePlayers = players.size();
+        int remainingPlayers = players.size();
 
         for (Grid board : gameBoards) {
             if (!((BattleshipGrid) board).allShipsSunk()) {
-                activePlayers--;
-                // this player's board is not empty, could be considered winner IF another player's board is empty
-                possibleWinner = board.getPlayer();
+                remainingPlayers++; // player board is not empty, they are still in the game
+                possibleWinner = board.getPlayer(); // this player's board is not empty, could be considered winner IF another player's board is empty
+
             }
         }
 
-        if (activePlayers == 1) {
+        if (remainingPlayers == 1) {
+            // Only one player left with ships still on their board, they are the winner
             winner = possibleWinner;
             return true;
         }
@@ -64,8 +65,10 @@ public class Battleship extends Game {
         if (!isGameOver()) {
             int nextPlayer = (players.indexOf(currentPlayer) + 1) % players.size();
             currentPlayer = players.get(nextPlayer);
+        } else {
+            System.out.println("Game Over!");
+            System.out.println("Player '" + winner.getUsername() + "''s is the Winner!");
         }
-        System.out.println("Game Over!");
-        System.out.println("Player '" + winner.getUsername() + "''s is the Winner!");
+
     }
 }
