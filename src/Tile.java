@@ -14,4 +14,8 @@ public abstract class Tile {
         coordinates.add(x);
         coordinates.add(y);
     }
+
+    public Color getColor(){ // modified/added
+        return this.color;
+    }
 }

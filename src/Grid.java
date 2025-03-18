@@ -7,6 +7,7 @@ public abstract class Grid {
     protected Tile[][] board;
     public Player player;
 
+
     public abstract void initialize();
     public abstract boolean checkMatch(Tile tile);
     public abstract void clearMatchedTiles(ArrayList<Tile> tiles);
