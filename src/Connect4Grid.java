@@ -1,11 +1,11 @@
 import java.util.*;
 
-public class ConnectFourGrid extends Grid{
+public class Connect4Grid extends Grid{
     private int rows;
     private int cols;
     private Tile[][] board;
 
-    public ConnectFourGrid(int rows, int cols) {
+    public Connect4Grid(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
         this.board = new Tile[rows][cols];
@@ -27,14 +27,6 @@ public class ConnectFourGrid extends Grid{
         board[row][col] = tile;
     }
 
-//    public void printGrid() {
-//        for (int i = 0; i < rows; i++) {
-//            for (int j = 0; j < cols; j++) {
-//                System.out.print(grid[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-//    }
     @Override
     public Set<Point> checkMatch(int row, int col) {
         Set<Point> matched = new HashSet<>();
@@ -101,6 +93,21 @@ public class ConnectFourGrid extends Grid{
         return true;    // Represent the board has changed, check match again
     }
 
+    @Override
+    public void initialize() {
+
+    }
+
+    @Override
+    public void placeTile(int x_coord, int y_coord) {
+
+    }
+
+    @Override
+    public boolean verifyTilePos(int x_coord, int y_coord) {
+        return false;
+    }
+
     public void applyTileFall() {
         // Apply gravity for each column
         for (int col = 0; col < cols; col++) {
@@ -120,21 +127,6 @@ public class ConnectFourGrid extends Grid{
             }
         }
     }
-    @Override
-    public void placeTile() {
-
-    }
-
-    @Override
-    public boolean verifyTilePos() {
-        return false;
-    }
-
-    @Override
-    public void moveTile() {
-
-    }
-
     @Override
     public Tile[][] getBoard() {
         return board;

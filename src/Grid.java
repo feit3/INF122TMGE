@@ -1,21 +1,19 @@
 import java.util.List;
 import java.util.Set;
+import java.util.ArrayList;
 
 public abstract class Grid {
-
-    // I was thinking about those can be final type
-    // (we as developer set the number, kinda like 'hardcoding' default width/height)
-    public static int DEFAULT_WIDTH;
-    public static int DEFAULT_HEIGHT;
+    private static final int SIZE = 10; // represents width and height of grid square (i.e. size of 10 = a 10x10 grid)
 
     public boolean isFull;
-    protected List<List<Tile>> board;
+    protected Tile[][] board;
+    public Player player;
 
     public abstract Set<Point> checkMatch(int row, int col);
     public abstract boolean clearMatchedTiles(Set<Point> matchedTiles);
-    public abstract void placeTile();
-    public abstract boolean verifyTilePos();
-    public abstract void moveTile();
+    public abstract void initialize();
+    public abstract void placeTile(int x_coord, int y_coord);
+    public abstract boolean verifyTilePos(int x_coord, int y_coord);
     public abstract Tile[][] getBoard();
     public void printBoard() {
         for ( Tile[] tile_List : getBoard() ) {
@@ -28,5 +26,9 @@ public abstract class Grid {
             System.out.printf(" %d  ", col+1);
         }
         System.out.println();
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

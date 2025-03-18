@@ -2,19 +2,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
 
-public class ConnectFour extends Game {
+public class Connect4 extends Game {
 
-    private final ConnectFourGrid board;
-    public ConnectFour() {
-        // Create game board
-        board = new ConnectFourGrid(6, 7);
-
-        players = new ArrayList<>();
-        players.add(new Player("Player1"));
-        players.add(new Player("Player2"));
-
-        // Start at player 1 (index 0)
-        turnBelongsTo = 0;
+    private final int POINT_THRESHOLD = 10;
+    private Connect4Grid board;
+    private ArrayList<Player> player_list;
+    public Connect4(ArrayList<Player> players) {
+        player_list = players;
+        initialize();
     }
 
     public void switchTurn() {
@@ -48,26 +43,19 @@ public class ConnectFour extends Game {
 
     @Override
     void initialize() {
+        // Create game board
+        board = new Connect4Grid(6, 7);
 
+        players = new ArrayList<>();
+        players.add(new Player("Player1"));
+        players.add(new Player("Player2"));
+
+        // Start at player 1 (index 0)
+        turnBelongsTo = 0;
     }
 
     @Override
-    Boolean checkGameOver() {
-        return null;
-    }
-
-    @Override
-    void handleInput(String input) {
-
-    }
-
-    @Override
-    void updateScreen() {
-
-    }
-
-    @Override
-    void start() {
+    void play() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Game Started!");
         board.printBoard();
@@ -111,7 +99,6 @@ public class ConnectFour extends Game {
                             if (matchedSet.size() > 0) {
                                 board.clearMatchedTiles(matchedSet);
                                 board.printBoard();
-                                System.out.println("Wawa");
                                 changed = true;
                             }
                         }
@@ -128,5 +115,20 @@ public class ConnectFour extends Game {
 
 //            checkWin();
         }
+    }
+
+    @Override
+    Boolean isGameOver() {
+        return null;
+    }
+
+    @Override
+    void handleInput(Tile tile, String x_coord, String y_coord) {
+
+    }
+
+    @Override
+    void updateGameState() {
+
     }
 }

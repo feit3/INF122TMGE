@@ -1,12 +1,14 @@
+import java.util.ArrayList;
+
 public abstract class Tile {
     private String type;   // The type of tile (e.g., "Ship", "Water", "RedPiece", etc.)
     private String value;  // Used for visuals or logic (e.g., "X", "O", "Red", "Yellow")
-
 
     public Tile(String type, String value) {
         this.type = type;
         this.value = value;
     }
+
 
     public String getType() {
         return type;

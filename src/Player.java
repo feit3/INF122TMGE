@@ -1,26 +1,30 @@
 public class Player {
-    private String username;
+    private final String username;
     private int points;
-    private Grid gameBoard;
 
-
-    Player(String username){
-        this.username = username;
-        this.points = 0;
+    Player(String PlayerName) {
+        username = PlayerName;
+        points = 0;
     }
 
+    public int getPoints() { //getter
+        return points;
+    }
 
-    int getPoints(){ //getter
-        return this.points;
+    public void addPoints(int addedPoints) { //specified return type was int, but assumed to be void;
+        points += addedPoints;
     }
-    void addPoints(int points){ //specified return type was int, but assumed to be void;
-        this.points += points;
+
+    public void resetPoints() { //specified return type was int, but assumed to be void
+        points = 0;
     }
-    void resetPoints(){ //specified return type was int, but assumed to be void
-        this.points = 0;
+
+    public void removePoints(int removedPoints) {
+        points -= removedPoints;
     }
-    void removePoints(int points){
-        this.points -= points;
+
+    public String getUsername() {
+        return username;
     }
 
     @Override
