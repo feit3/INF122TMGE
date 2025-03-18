@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Battleship extends Game {
     public Battleship(ArrayList<Player> incomingPlayers) {
@@ -15,8 +16,38 @@ public class Battleship extends Game {
     }
 
     @Override
-    public void play() {
+    public String getGameName() {
+        return "Battleship";
+    }
 
+    @Override
+    public void play() {
+        System.out.println("Welcome to Battleship!");
+        initialize();
+
+        // for reading user input
+        Scanner scanner = new Scanner(System.in);
+
+        while (!isGameOver()) {
+            System.out.println("Player " + currentPlayer.getUsername() + "'s turn. Here is your Board:");
+            displayBoard();
+
+            System.out.println("\nEnter coordinates for your attack (x, y):");
+            String coordinates = scanner.nextLine();
+            String[] coordinatesArray = coordinates.split(",");
+            int x = Integer.parseInt(coordinatesArray[0]);
+            int y = Integer.parseInt(coordinatesArray[1]);
+            handleInput(x, y);
+
+        }
+    }
+
+    public void displayBoard() {
+        for (Grid board : gameBoards) {
+            if (board.getPlayer() == currentPlayer) {
+                System.out.println(board);
+            }
+        }
     }
 
     @Override
@@ -28,7 +59,7 @@ public class Battleship extends Game {
     }
 
     @Override
-    public Boolean isGameOver() {
+    public boolean isGameOver() {
         Player possibleWinner = null;
         int remainingPlayers = players.size();
 
@@ -49,14 +80,11 @@ public class Battleship extends Game {
     }
 
     @Override
-    public void handleInput(Tile shipPiece, String x, String y) {
-        int x_coordinate = Integer.parseInt(x);
-        int y_coordinate = Integer.parseInt(y);
-
+    public void handleInput(int x_coord, int y_coord) {
         // Grab the opposing player's board and attempt a guess at their battleship locations
         int opposingPlayer = (players.indexOf(currentPlayer) + 1) % players.size();
         BattleshipGrid opponentGrid = (BattleshipGrid) gameBoards.get(opposingPlayer);
-        opponentGrid.placeTile(x_coordinate, y_coordinate);
+        opponentGrid.placeTile(x_coord, y_coord);
         updateGameState(); // move to next player
     }
 
