@@ -15,6 +15,8 @@ public abstract class Game {
     public Player getWinner() {
         return winner;
     }
+    abstract String getName(); // added
+
 
 }
 

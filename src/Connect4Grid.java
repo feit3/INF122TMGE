@@ -15,6 +15,7 @@ public class Connect4Grid extends Grid {
         this.player = Owner; //owner of class object
     }
 
+
      public void initialize(){
 
      }
@@ -38,7 +39,7 @@ public class Connect4Grid extends Grid {
 
      public void clearMatchedTiles(ArrayList<Tile> tiles){}
      public void placeTile(int x_coord, int y_coord){}
-     public boolean verifyTilePos(int x_coord, int y_coord){
+     public boolean verifyTilePos(int x_coord, int y_coord, String check){
 
 
         return false;

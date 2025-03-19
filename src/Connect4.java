@@ -37,15 +37,15 @@ public class Connect4 extends Game {
             return;
             //invalid move
         }
-        
-
 
 
      } //return type was assumed
 
 
-
      void updateGameState(){} // update player scores, game over check, etc.
 
+     public String getName(){
+         return "Connect4";
+     }
 
 }

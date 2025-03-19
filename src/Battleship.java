@@ -19,6 +19,7 @@ public class Battleship extends Game {
 
     }
 
+
     @Override
     // initialize the game wi
     public void initialize() {
@@ -71,4 +72,11 @@ public class Battleship extends Game {
         }
 
     }
+
+    @Override
+    public String getName(){
+        return "Battleship";
+    }
+
+
 }
