@@ -142,6 +142,20 @@ public class Connect4Grid extends Grid{
             }
         }
     }
+
+    public void printBoard() {
+        for ( Tile[] tile_List : getBoard() ) {
+            for (Tile t : tile_List) {
+                System.out.printf("%s ", t);
+            }
+            System.out.println();
+        }
+        for (int col = 0; col < getBoard()[0].length; col++) {
+            System.out.printf(" %d  ", col+1);
+        }
+        System.out.println();
+    }
+
     @Override
     public Tile[][] getBoard() {
         return board;

@@ -16,18 +16,6 @@ public abstract class Grid {
     public abstract boolean placeTile(int x_coord, int y_coord);
     public abstract boolean verifyTilePos(int x_coord, int y_coord, String check);
     public abstract Tile[][] getBoard();
-    public void printBoard() {
-        for ( Tile[] tile_List : getBoard() ) {
-            for (Tile t : tile_List) {
-                System.out.printf("%s ", t);
-            }
-            System.out.println();
-        }
-        for (int col = 0; col < getBoard()[0].length; col++) {
-            System.out.printf(" %d  ", col+1);
-        }
-        System.out.println();
-    }
 
     public Player getPlayer() {
         return player;

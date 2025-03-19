@@ -54,27 +54,21 @@ public class Connect4 extends Game {
     @Override
     void play() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Game Started!");
+        System.out.println("Game Started! First to" + POINT_THRESHOLD +  " points wins!");
         board.printBoard();
 
         while (!isGameOver()) {
-            // Ask&Handle input
+            // Ask & Handle input
             System.out.printf("Now is %s's turn.\n", currentPlayer.getUsername());
+            System.out.println("Points: " + currentPlayer.getPoints());
             System.out.println("Enter column:");
 //            int row = scanner.nextInt();
             int col = scanner.nextInt()-1; // For user input friendly, our column index start at 1
 
-//            try {
             handleInput(-1, col);
-//            }
-//            catch (Exception e) {
-//                System.out.println(e.getMessage()); // Error message (Column Full)
-//                continue; // Do not update the board or switch turns, let current user input again
-//            }
         }
 
         System.out.println("Game Ended!");
-
     }
 
     @Override
