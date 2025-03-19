@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class TMGEManager {
+
     private static TMGEManager TMGEManagerInstance;
     ArrayList<Player> allPlayers;
     ArrayList<Game> allGames;
@@ -20,6 +21,15 @@ public class TMGEManager {
         return TMGEManagerInstance;
     }
 
+    public Game checkGameExists(String gameName) {
+        for (Game game : allGames) {
+            if (game.getGameName().equalsIgnoreCase(gameName)) {
+                return game;
+            }
+        }
+        return null;
+    }
+
     public void playGame(Game game) {
         game.play();
     }
@@ -37,8 +47,9 @@ public class TMGEManager {
     public void displayGames() {
         int counter = 1;
         for (Game game : allGames) {
-            System.out.println(counter + ". " + game);
+            System.out.println(counter++ + ". " + game.getGameName());
         }
+        System.out.println(counter + ". Exit (Q)");
     }
 
 }

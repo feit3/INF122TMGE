@@ -18,4 +18,14 @@ public class Ship {
     public ArrayList<ShipPiece> getShipStructure() {
         return shipStructure;
     }
+
+    public boolean checkSunk() {
+        int sunkenPieces = 0;
+        for (ShipPiece shipPiece : shipStructure) {
+            if (shipPiece.isHit()) {
+                sunkenPieces++;
+            }
+        }
+        return sunkenPieces == length;
+    }
 }
