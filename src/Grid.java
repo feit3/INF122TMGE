@@ -10,8 +10,8 @@ public abstract class Grid {
     protected Tile[][] board;
     public Player player;
 
-    public abstract Set<Point> checkMatch(int row, int col);
     public abstract void initialize();
+    public abstract boolean checkMatch(Tile tile);
     public abstract void clearMatchedTiles(ArrayList<Tile> tiles);
     public abstract boolean placeTile(int x_coord, int y_coord);
     public abstract boolean verifyTilePos(int x_coord, int y_coord, String check);

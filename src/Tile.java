@@ -38,6 +38,10 @@ public abstract class Tile {
         return "[" + value + "]";
     }
 
+    public ArrayList<Integer> getCoordinates() {
+        return coordinates;
+    }
+
     public void setCoordinates(int x, int y) {
         coordinates.clear();
         coordinates.add(x);

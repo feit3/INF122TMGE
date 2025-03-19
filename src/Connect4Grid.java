@@ -10,13 +10,7 @@ public class Connect4Grid extends Grid{
         this.cols = cols;
         this.board = new Tile[rows][cols];
 
-        initializeGrid();
-    }
-
-    private void initializeGrid() {
-        for (int i = 0; i < rows; i++) {
-            Arrays.fill(board[i], new TokenTile("Empty", " "));
-        }
+        initialize();
     }
 
     public Tile getTile(int row, int col) {
@@ -27,7 +21,6 @@ public class Connect4Grid extends Grid{
         board[row][col] = tile;
     }
 
-    @Override
     public Set<Point> checkMatch(int row, int col) {
         Set<Point> matched = new HashSet<>();
 
@@ -62,7 +55,7 @@ public class Connect4Grid extends Grid{
         Tile currentTile = board[row][col];
 
         // Don't check for empty tile XD
-        if (currentTile.getType().equals("Empty")) return;
+        if (verifyTilePos(row, col, "empty")) return;
 
         int r = row + deltaRow;
         int c = col + deltaCol;
@@ -99,7 +92,14 @@ public class Connect4Grid extends Grid{
 
     @Override
     public void initialize() {
+        for (int i = 0; i < rows; i++) {
+            Arrays.fill(board[i], new TokenTile("Empty", " "));
+        }
+    }
 
+    @Override
+    public boolean checkMatch(Tile tile) {
+        return false;
     }
 
     @Override
@@ -108,12 +108,18 @@ public class Connect4Grid extends Grid{
     }
 
     @Override
-    public void placeTile(int x_coord, int y_coord) {
+    public boolean placeTile(int x_coord, int y_coord) {
 
+        return false;
     }
 
     @Override
-    public boolean verifyTilePos(int x_coord, int y_coord) {
+    public boolean verifyTilePos(int row, int col, String check) {
+        switch (check) {
+            case "empty" -> {
+                return board[row][col].getType().equals("Empty");
+            }
+        }
         return false;
     }
 
@@ -123,7 +129,7 @@ public class Connect4Grid extends Grid{
             int writeRow = rows - 1;
 
             for (int row = rows - 1; row >= 0; row--) {
-                if (!board[row][col].getType().equals("Empty")) {
+                if (!verifyTilePos(row, col, "empty")) {
 
                     // Swap these two tile if they are not same
                     if (writeRow != row) {

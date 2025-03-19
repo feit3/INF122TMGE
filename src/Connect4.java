@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Connect4 extends Game {
 
-    private final int POINT_THRESHOLD = 10;
+    private final int POINT_THRESHOLD = 20;
     private Map<String, Player> playerColors;
     private Connect4Grid board;
 
@@ -38,7 +38,7 @@ public class Connect4 extends Game {
     }
 
     @Override
-    void initialize() {
+    public void initialize() {
         // Create game board
         board = new Connect4Grid(6, 7);
 
@@ -62,10 +62,10 @@ public class Connect4 extends Game {
             System.out.printf("Now is %s's turn.\n", currentPlayer.getUsername());
             System.out.println("Enter column:");
 //            int row = scanner.nextInt();
-            String col = scanner.nextLine(); // For user input friendly, our column index start at 1
+            int col = scanner.nextInt()-1; // For user input friendly, our column index start at 1
 
 //            try {
-            handleInput(generateNewTile(),"None", String.valueOf(col));
+            handleInput(-1, col);
 //            }
 //            catch (Exception e) {
 //                System.out.println(e.getMessage()); // Error message (Column Full)
@@ -78,7 +78,7 @@ public class Connect4 extends Game {
     }
 
     @Override
-    Boolean isGameOver() {
+    public boolean isGameOver() {
 
         // Check if any of player goes over 20 points (Cleared 20 tiles already)
         for (Player p : players)
@@ -88,8 +88,10 @@ public class Connect4 extends Game {
         return false;
     }
 
-    void handleInput(Tile tile, String r, String c) {
-        int col = Integer.parseInt(c)-1; // User input friendly
+    @Override
+    public void handleInput(int row, int col) {
+
+        Tile tile = generateNewTile();
 
         // Place the Tile
         Point p = dropPiece(col);
@@ -132,34 +134,17 @@ public class Connect4 extends Game {
             }
         }
 
-        // Switch the player
-        switchTurn();
+        updateGameState();
     }
 
     @Override
     void updateGameState() {
-
+        // Switch the player
+        switchTurn();
     }
 
     @Override
     public String getGameName() {
         return "Connect 4";
     }
-
-    @Override
-    public void play() {}
-
-    @Override
-    public void initialize() {}
-
-    @Override
-    public boolean isGameOver() {return false;}
-
-
-    @Override
-    public void handleInput(int x_coord, int y_coord) {}
-
-    @Override
-    public void updateGameState() {}
-
 }

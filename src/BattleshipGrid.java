@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class BattleshipGrid extends Grid {
     private static final int SIZE = 10;
@@ -105,11 +102,11 @@ public class BattleshipGrid extends Grid {
 
     @Override
     public void clearMatchedTiles(ArrayList<Tile> tiles) {
-        if (tiles.isEmpty() || !(tiles.getFirst() instanceof ShipPiece)) {
+        if (tiles.isEmpty() || !(tiles.get(0) instanceof ShipPiece)) {
             return;
         }
 
-        ShipPiece reference = (ShipPiece) tiles.getFirst();
+        ShipPiece reference = (ShipPiece) tiles.get(0);
         Ship shipToRemove = findSunkShip(reference);
 
         if (shipToRemove != null) {
@@ -184,6 +181,11 @@ public class BattleshipGrid extends Grid {
                     ((ShipPiece)board[x_coord][y_coord]).getState() == ShipPieceState.WATER;
         }
         return false;
+    }
+
+    @Override
+    public Tile[][] getBoard() {
+        return new Tile[0][];
     }
 
     public boolean allShipsSunk() {
