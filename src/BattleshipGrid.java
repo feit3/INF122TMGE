@@ -20,6 +20,10 @@ public class BattleshipGrid extends Grid {
         player = owner;
     }
 
+    public ArrayList<Ship> getShips() {
+        return ships;
+    }
+
     @Override
     public void initialize() {
         // generate 4 battleships in random areas on the grid, these ships can either be vertical or horizontal
@@ -122,7 +126,7 @@ public class BattleshipGrid extends Grid {
     }
 
     @Override
-    public void placeTile(int x_coord, int y_coord) {
+    public boolean placeTile(int x_coord, int y_coord) {
         // params: x_coord and y_coord are the guessed coordinates
         // call verifyTilePos to check out-of-bounds
         // place the shipPiece
@@ -131,7 +135,7 @@ public class BattleshipGrid extends Grid {
 
         if (!verifyTilePos(x_coord, y_coord, "bounds")) {
             System.out.println("Out of bounds, Try Again.\n");
-            return; // not a valid move
+            return false; // not a valid move
         }
 
         ShipPiece target = (ShipPiece) board[x_coord][y_coord];
@@ -149,8 +153,10 @@ public class BattleshipGrid extends Grid {
                 System.out.println("Ship Destroyed!\n");
             }
         } else {
-            System.out.println("MISS");
+            System.out.println("MISS\n");
         }
+
+        return true;
     }
 
     // Checks whether the player hit a ShipPiece
@@ -188,6 +194,14 @@ public class BattleshipGrid extends Grid {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board.length; col++) {
+                sb.append("   ").append(col);
+            }
+            sb.append("\n");
+            break;
+        }
+        for (int row = 0; row < board.length; row++) {
+            sb.append(row).append(" ");
             for (int col = 0; col < board.length; col++) {
                 ShipPiece boardPiece = (ShipPiece) board[row][col];
                 ShipPieceState state = boardPiece.getState();

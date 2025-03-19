@@ -13,7 +13,7 @@ public class Connect4Grid extends Grid {
     public void clearMatchedTiles(ArrayList<Tile> tiles) {}
 
     @Override
-    public void placeTile(int x_coord, int y_coord) {}
+    public boolean placeTile(int x_coord, int y_coord) { return false; }
 
     @Override
     public boolean verifyTilePos(int x_coord, int y_coord, String check) {return true;}

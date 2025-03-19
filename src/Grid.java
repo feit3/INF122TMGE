@@ -11,7 +11,7 @@ public abstract class Grid {
     public abstract void initialize();
     public abstract boolean checkMatch(Tile tile);
     public abstract void clearMatchedTiles(ArrayList<Tile> tiles);
-    public abstract void placeTile(int x_coord, int y_coord);
+    public abstract boolean placeTile(int x_coord, int y_coord);
     public abstract boolean verifyTilePos(int x_coord, int y_coord, String check);
 
     public Player getPlayer() {
