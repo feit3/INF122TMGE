@@ -27,6 +27,5 @@ public class Player {
         return username;
     }
 
-
 }
 

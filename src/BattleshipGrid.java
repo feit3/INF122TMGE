@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class BattleshipGrid extends Grid {
     private static final int SIZE = 10;
@@ -11,11 +8,17 @@ public class BattleshipGrid extends Grid {
         board = new ShipPiece[SIZE][SIZE];
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
-                board[row][col] = new ShipPiece(row, col);
+                ShipPiece water = new ShipPiece(row, col);
+                water.changeState(ShipPieceState.WATER);
+                board[row][col] = water;
             }
         }
         ships = new ArrayList<>();
         player = owner;
+    }
+
+    public ArrayList<Ship> getShips() {
+        return ships;
     }
 
     @Override
@@ -23,60 +26,52 @@ public class BattleshipGrid extends Grid {
         // generate 4 battleships in random areas on the grid, these ships can either be vertical or horizontal
         int totalShips = 0;
         while (totalShips < 4) {
-            generateBattleShips();
+            generateBattleShip();
             totalShips++;
         }
     }
-
-//    private Ship buildShip(Orientation orientation, int size) {
-//
-//    }
 
     private boolean canPlaceShip(int x_coord, int y_coord, int size, Orientation orientation) {
         for (int i = 0; i < size; i++) {
             int newX = orientation == Orientation.HORIZONTAL ? x_coord + i : x_coord;
             int newY = orientation == Orientation.VERTICAL ? y_coord + i : y_coord;
 
-            if (verifyTilePos(newX, newY, "bounds") || verifyTilePos(newX, newY, "occupied")) {
+            if (!verifyTilePos(newX, newY, "bounds") || isLocationOfShip(newX, newY)) {
                 return false;
             }
         }
         return true;
     }
 
-    // BIG PRIORITY HERE!!!
-    public void generateBattleShips() {
+
+    public void generateBattleShip() {
         Random rand = new Random();
-        int numShips = 4;
+        int shipSize = rand.nextInt(3) + 2; // Ships will be 2-4 tiles long
+        Orientation shipOrientation = Orientation.values()[rand.nextInt(Orientation.values().length)];
 
-        for (int i = 0; i < numShips; i++) {
-            int shipSize = rand.nextInt(3) + 2; // Ships will be 2-4 tiles long
-            Orientation shipOrientation = Orientation.values()[rand.nextInt(Orientation.values().length)];
+        boolean placed = false;
+        while (!placed) {
+            int startX = rand.nextInt(SIZE);
+            int startY = rand.nextInt(SIZE);
 
-            boolean placed = false;
-            while (!placed) {
-                int startX = rand.nextInt(SIZE);
-                int startY = rand.nextInt(SIZE);
+            if (canPlaceShip(startX, startY, shipSize, shipOrientation)) {
+                // For actually building the ship
+                ArrayList<ShipPiece> shipPieces = new ArrayList<>();
+                for (int j = 0; j < shipSize; j++) {
+                    // establish coords for singular ShipPiece based on orientation
+                    int x = shipOrientation == Orientation.HORIZONTAL ? startX + j : startX;
+                    int y = shipOrientation == Orientation.VERTICAL ? startY + j : startY;
 
-                if (canPlaceShip(startX, startY, shipSize, shipOrientation)) {
-                    // For actually building the ship
-                    ArrayList<ShipPiece> shipPieces = new ArrayList<>();
-                    for (int j = 0; j < shipSize; j++) {
-                        // establish coords for singular ShipPiece based on orientation
-                        int x = shipOrientation == Orientation.HORIZONTAL ? startX + j : startX;
-                        int y = shipOrientation == Orientation.VERTICAL ? startY + j : startY;
-
-                        // Create shipPiece and add it to array for Ship
-                        ShipPiece piece = new ShipPiece(x, y);
-                        shipPieces.add(piece);
-                        board[x][y] = piece; // place the shipPiece on the board
-                    }
-
-                    // Create ship, add it to list of ships, new ship is now generated
-                    Ship ship = new Ship(shipPieces, shipOrientation);
-                    ships.add(ship);
-                    placed = true;
+                    // Create shipPiece and add it to array for Ship
+                    ShipPiece piece = new ShipPiece(x, y); // initially created as SAFE state
+                    shipPieces.add(piece);
+                    board[x][y] = piece; // place the shipPiece on the board
                 }
+
+                // Create ship, add it to list of ships, new ship is now generated
+                Ship ship = new Ship(shipPieces, shipOrientation);
+                ships.add(ship);
+                placed = true;
             }
         }
     }
@@ -107,11 +102,11 @@ public class BattleshipGrid extends Grid {
 
     @Override
     public void clearMatchedTiles(ArrayList<Tile> tiles) {
-        if (tiles.isEmpty() || !(tiles.getFirst() instanceof ShipPiece)) {
+        if (tiles.isEmpty() || !(tiles.get(0) instanceof ShipPiece)) {
             return;
         }
 
-        ShipPiece reference = (ShipPiece) tiles.getFirst();
+        ShipPiece reference = (ShipPiece) tiles.get(0);
         Ship shipToRemove = findSunkShip(reference);
 
         if (shipToRemove != null) {
@@ -128,7 +123,7 @@ public class BattleshipGrid extends Grid {
     }
 
     @Override
-    public void placeTile(int x_coord, int y_coord) {
+    public boolean placeTile(int x_coord, int y_coord) {
         // params: x_coord and y_coord are the guessed coordinates
         // call verifyTilePos to check out-of-bounds
         // place the shipPiece
@@ -136,23 +131,29 @@ public class BattleshipGrid extends Grid {
         // Check if entire ship is sunk after that hit, clear it from board if so
 
         if (!verifyTilePos(x_coord, y_coord, "bounds")) {
-            return; // not a valid move
+            System.out.println("Out of bounds, Try Again.\n");
+            return false; // not a valid move
         }
 
         ShipPiece target = (ShipPiece) board[x_coord][y_coord];
+//        System.out.println("Piece: " + target.getStateIcon(target.getState()));
 
         if (isLocationOfShip(x_coord, y_coord)) {
             target.changeState(ShipPieceState.HIT); // player found a Ship, its shipPiece is HIT now
+            System.out.println("HIT!\n");
 
             // Check if the entire Ship that the target hit is Sunk
             if (checkMatch(target)) {
                 ArrayList<Tile> targetTile = new ArrayList<>();
                 targetTile.add(target);
                 clearMatchedTiles(targetTile);
+                System.out.println("Ship Destroyed!\n");
             }
+        } else {
+            System.out.println("MISS\n");
         }
 
-
+        return true;
     }
 
     // Checks whether the player hit a ShipPiece
@@ -182,7 +183,35 @@ public class BattleshipGrid extends Grid {
         return false;
     }
 
+    @Override
+    public Tile[][] getBoard() {
+        return new Tile[0][];
+    }
+
     public boolean allShipsSunk() {
         return ships.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board.length; col++) {
+                sb.append("   ").append(col);
+            }
+            sb.append("\n");
+            break;
+        }
+        for (int row = 0; row < board.length; row++) {
+            sb.append(row).append(" ");
+            for (int col = 0; col < board.length; col++) {
+                ShipPiece boardPiece = (ShipPiece) board[row][col];
+                ShipPieceState state = boardPiece.getState();
+                String pieceIcon = boardPiece.getStateIcon(state);
+                sb.append("[").append(pieceIcon).append("]").append(" ");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }

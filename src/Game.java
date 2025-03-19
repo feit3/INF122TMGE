@@ -9,14 +9,13 @@ public abstract class Game {
 
     abstract void play();
     abstract void initialize();
-    abstract Boolean isGameOver();
-    abstract void handleInput(Tile tile, String x_coord, String y_coord); //return type was assumed
+    abstract boolean isGameOver();
+    abstract void handleInput(int x_coord, int y_coord); //return type was assumed
     abstract void updateGameState(); // update player scores, game over check, etc.
     public Player getWinner() {
         return winner;
     }
-    abstract String getName(); // added
-
+    abstract String getGameName();
 
 }
 

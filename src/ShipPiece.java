@@ -8,6 +8,7 @@ public class ShipPiece extends Tile {
     Map<ShipPieceState, String> stateIcons;
 
     public ShipPiece(int x, int y) {
+        super("ShipPiece", "S");
         coordinates = new ArrayList<>();
         coordinates.add(x);
         coordinates.add(y);
