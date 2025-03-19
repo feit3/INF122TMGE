@@ -23,15 +23,6 @@ public class BattleshipGrid extends Grid {
         return null;
     }
 
-    @Override
-    public boolean clearMatchedTiles(Set<Point> matchedTiles) {
-        return false;
-    }
-
-    @Override
-    public boolean clearMatchedTiles(Set<Point> matchedTiles, Map<String, Player> playerColor) {
-        return false;
-    }
 
     @Override
     public void initialize() {

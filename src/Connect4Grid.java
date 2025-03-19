@@ -40,10 +40,6 @@ public class Connect4Grid extends Grid{
         return matched.size() >= 4 ? matched : Collections.emptySet();
     }
 
-    @Override
-    public boolean clearMatchedTiles(Set<Point> matchedTiles) {
-        return false;
-    }
 
     // Helper to check in both directions and collect matched tiles
     private void checkDirection(int row, int col, int rowDir, int colDir, Set<Point> matched) {
@@ -86,7 +82,6 @@ public class Connect4Grid extends Grid{
         return cols;
     }
 
-    @Override
     public boolean clearMatchedTiles(Set<Point> matchedTiles, Map<String, Player> playerColor) {
         if (matchedTiles.size() == 0) { return false; } // board has not changed
         for (Point pos : matchedTiles) {

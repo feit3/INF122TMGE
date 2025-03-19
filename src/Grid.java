@@ -11,14 +11,8 @@ public abstract class Grid {
     public Player player;
 
     public abstract Set<Point> checkMatch(int row, int col);
-    public abstract boolean clearMatchedTiles(Set<Point> matchedTiles);
-
-    public abstract boolean clearMatchedTiles(Set<Point> matchedTiles, Map<String, Player> playerColor);
-
     public abstract void initialize();
-
     public abstract void clearMatchedTiles(ArrayList<Tile> tiles);
-
     public abstract void placeTile(int x_coord, int y_coord);
     public abstract boolean verifyTilePos(int x_coord, int y_coord);
     public abstract Tile[][] getBoard();

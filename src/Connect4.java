@@ -124,7 +124,7 @@ public class Connect4 extends Game {
                     // Will do another board check later
                     matchedSet = board.checkMatch(i, j);
                     if (matchedSet.size() > 0) {
-                        board.clearMatchedTiles(matchedSet);
+                        board.clearMatchedTiles(matchedSet, playerColors);
                         board.printBoard();
                         changed = true;
                     }
