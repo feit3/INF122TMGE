@@ -51,10 +51,24 @@ public class Connect4 extends Game {
         playerColors.put("Yellow", players.get(1));
     }
 
+    public void displayInstructions() {
+        System.out.println("RULES:");
+        System.out.println("1. Players are given a board. Each player takes turns dropping a token on the board by selecting the corresponding column number.");
+
+        System.out.println("\n2. A match occurs when a player connects 4 tokens in a row horizontally, vertically, or diagonally. The matched tokens are then cleared off the board.");
+
+        System.out.println("\n3. After a match, any tokens that were placed above the 4 matched tokens are then dropped.");
+        System.out.println("   It is possible for a match to occur for either player after this happens, so think ahead!");
+
+        System.out.println("\n4. For every tile matched, players gain a point. The game continues until one of the players reaches a certain point threshold.\n");
+    }
+
     @Override
     void play() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Game Started! First to" + POINT_THRESHOLD +  " points wins!");
+        System.out.println("Welcome to Connect 4!");
+        displayInstructions();
+        System.out.println("Game Started! First to " + POINT_THRESHOLD +  " points wins!");
         board.printBoard();
 
         while (!isGameOver()) {
@@ -77,7 +91,10 @@ public class Connect4 extends Game {
         // Check if any of player goes over 20 points (Cleared 20 tiles already)
         for (Player p : players)
         {
-            if (p.getPoints() >= POINT_THRESHOLD) { return true; }
+            if (p.getPoints() >= POINT_THRESHOLD) {
+                System.out.println("Player " + p.getUsername() + " wins!");
+                return true;
+            }
         }
         return false;
     }
