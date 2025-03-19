@@ -21,7 +21,16 @@ public class TMGEManager {
         return TMGEManagerInstance;
     }
 
-    public static void playGame(Game game) {
+    public Game checkGameExists(String gameName) {
+        for (Game game : allGames) {
+            if (game.getGameName().equalsIgnoreCase(gameName)) {
+                return game;
+            }
+        }
+        return null;
+    }
+
+    public void playGame(Game game) {
         game.play();
     }
 
@@ -38,7 +47,9 @@ public class TMGEManager {
     public void displayGames() {
         int counter = 1;
         for (Game game : allGames) {
-            System.out.println(counter + ". " + game);
+            System.out.println(counter++ + ". " + game.getGameName());
         }
+        System.out.println(counter + ". Exit (Q)");
     }
+
 }

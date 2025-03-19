@@ -9,6 +9,10 @@ public abstract class Tile {
         this.value = value;
     }
 
+    ArrayList<Integer> coordinates;
+    boolean filled;
+    Color color;
+    String Icon;
 
     public String getType() {
         return type;
@@ -32,5 +36,11 @@ public abstract class Tile {
     @Override
     public String toString() {
         return "[" + value + "]";
+    }
+
+    public void setCoordinates(int x, int y) {
+        coordinates.clear();
+        coordinates.add(x);
+        coordinates.add(y);
     }
 }

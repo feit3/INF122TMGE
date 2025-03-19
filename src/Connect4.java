@@ -140,4 +140,26 @@ public class Connect4 extends Game {
     void updateGameState() {
 
     }
+
+    @Override
+    public String getGameName() {
+        return "Connect 4";
+    }
+
+    @Override
+    public void play() {}
+
+    @Override
+    public void initialize() {}
+
+    @Override
+    public boolean isGameOver() {return false;}
+
+
+    @Override
+    public void handleInput(int x_coord, int y_coord) {}
+
+    @Override
+    public void updateGameState() {}
+
 }
