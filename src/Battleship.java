@@ -20,9 +20,29 @@ public class Battleship extends Game {
         return "Battleship";
     }
 
+    public void displayInstructions() {
+        System.out.println("RULES:");
+        System.out.println("1. Each player has their own board, each containing 4 battleships.");
+        System.out.println("  - Pieces of a Ship are indicated as 'O' on the board.");
+        System.out.println("  - Each ship is between 2 to 4 Ship Pieces long, either vertical or horizontal.");
+        System.out.println("  - All other empty tiles on the board are considered water.");
+
+        System.out.println("\n2. Players take turns guessing the coordinates of the Ship Pieces on an opposing player's board.");
+        System.out.println("  - MISS --> Player's coordinates were water.");
+        System.out.println("  - HIT --> Player's coordinates was a Ship Piece ('O').");
+
+        System.out.println("\n3. When a player successfully makes a HIT,");
+        System.out.println("  - The Player that GOT HIT loses a ship piece (indicated as 'O' turns into 'X').");
+        System.out.println("    - If that was the last Ship Piece of one of their Ships, then that Ship is destroyed and cleared off the board.");
+        System.out.println("  - The player that MADE THE HIT then gains an extra ship on their board (like reinforcements). This will make it harder for them to lose!");
+
+        System.out.println("\n4. The last player left standing with ships on their board is the winner! In other words, if everyone else's ships but theirs are destroyed, they win!\n");
+    }
+
     @Override
     public void play() {
         System.out.println("Welcome to Battleship!");
+        displayInstructions();
         initialize();
 
         // for reading user input

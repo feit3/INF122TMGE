@@ -12,10 +12,11 @@ public abstract class Game {
     abstract boolean isGameOver();
     abstract void handleInput(int x_coord, int y_coord); //return type was assumed
     abstract void updateGameState(); // update player scores, game over check, etc.
+    abstract void displayInstructions();
+    abstract String getGameName();
+
     public Player getWinner() {
         return winner;
     }
-    abstract String getGameName();
-
 }
 

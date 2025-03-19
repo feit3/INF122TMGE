@@ -35,8 +35,25 @@ public class TMGEManager {
     }
 
     public void addNewPlayer(String username) {
+        // Check if username is empty
+        if (username.isEmpty()) {
+            System.out.println("Username is empty. Try again.\n");
+            return;
+        }
+        // Check if player exists
+        for (Player player : allPlayers) {
+            if (player.getUsername().equalsIgnoreCase(username)) {
+                // player already exists, don't create a duplicate, and return
+                System.out.println("Player already exists. Try again.\n");
+                return;
+            }
+        }
         Player newPlayer = new Player(username);
         allPlayers.add(newPlayer);
+    }
+
+    public ArrayList<Player> getAllPlayers() {
+        return allPlayers;
     }
 
     public void addNewGame(String gameName) {
