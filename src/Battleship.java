@@ -34,13 +34,20 @@ public class Battleship extends Game {
 
             System.out.println("\nEnter coordinates for your attack (x, y):");
             String coordinates = scanner.nextLine();
+            // Check if input matches the pattern "x,y" where x and y are digits
+            if (!coordinates.matches("\\d+,\\d+")) {
+                System.out.println("Invalid format! Please enter coordinates as 'x,y' (e.g. '3,5').\n");
+                continue;
+            }
+
+            // Input is valid, parse and continue game
             String[] coordinatesArray = coordinates.split(",");
             int x = Integer.parseInt(coordinatesArray[0]);
             int y = Integer.parseInt(coordinatesArray[1]);
             handleInput(x, y);
-
         }
     }
+
 
     public void displayBoard() {
         for (Grid board : gameBoards) {
@@ -51,7 +58,7 @@ public class Battleship extends Game {
     }
 
     @Override
-    // initialize the game wi
+    // initialize the game boards
     public void initialize() {
         for (Grid board : gameBoards) {
             board.initialize();
@@ -61,13 +68,12 @@ public class Battleship extends Game {
     @Override
     public boolean isGameOver() {
         Player possibleWinner = null;
-        int remainingPlayers = players.size();
+        int remainingPlayers = 0;
 
         for (Grid board : gameBoards) {
             if (!((BattleshipGrid) board).allShipsSunk()) {
                 remainingPlayers++; // player board is not empty, they are still in the game
                 possibleWinner = board.getPlayer(); // this player's board is not empty, could be considered winner IF another player's board is empty
-
             }
         }
 
@@ -84,8 +90,21 @@ public class Battleship extends Game {
         // Grab the opposing player's board and attempt a guess at their battleship locations
         int opposingPlayer = (players.indexOf(currentPlayer) + 1) % players.size();
         BattleshipGrid opponentGrid = (BattleshipGrid) gameBoards.get(opposingPlayer);
-        opponentGrid.placeTile(x_coord, y_coord);
-        updateGameState(); // move to next player
+        int num_opp_ships_BEFORE = opponentGrid.getShips().size();
+        boolean tilePlaced = opponentGrid.placeTile(x_coord, y_coord);
+        if (!tilePlaced) {
+            return;
+        }
+        int num_opp_ships_AFTER = opponentGrid.getShips().size();
+
+        // Check if a ship has been hit, generate a new battleship on the current player's board if so
+        if (num_opp_ships_BEFORE > num_opp_ships_AFTER) {
+            int currentPlayerIdx = players.indexOf(currentPlayer) % players.size();
+            BattleshipGrid currentPlayerGrid = (BattleshipGrid) gameBoards.get(currentPlayerIdx);
+            currentPlayerGrid.generateBattleShip();
+        }
+
+        updateGameState(); // check if the game is over, move on to next player if not
     }
 
     @Override
@@ -97,6 +116,5 @@ public class Battleship extends Game {
             System.out.println("Game Over!");
             System.out.println("Player '" + winner.getUsername() + "''s is the Winner!");
         }
-
     }
 }
