@@ -33,7 +33,7 @@ public abstract class Tile {
     public boolean equals(Tile t) {
         return this.type.equals(t.type);
     }
-    @Override
+
     public String toString() {
         return "[" + value + "]";
     }

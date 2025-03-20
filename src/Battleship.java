@@ -20,6 +20,7 @@ public class Battleship extends Game {
         return "Battleship";
     }
 
+    @Override
     public void displayInstructions() {
         System.out.println("RULES:");
         System.out.println("1. Each player has their own board, each containing 4 battleships.");

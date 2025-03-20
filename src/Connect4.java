@@ -51,6 +51,7 @@ public class Connect4 extends Game {
         playerColors.put("Yellow", players.get(1));
     }
 
+    @Override
     public void displayInstructions() {
         System.out.println("RULES:");
         System.out.println("1. Players are given a board. Each player takes turns dropping a token on the board by selecting the corresponding column number.");
